@@ -1,0 +1,76 @@
+﻿@model ProductVM
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-center text-danger">Ürün Listesi</h1>
+<hr />
+@if (TempData["result"] != null)
+{
+	<div class="alert alert-success text-center"><h4>@TempData["result"]</h4></div>
+}
+<p>
+    <a asp-action="Ekle" class="btn btn-success">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.ProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product_Dtos.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product_Dtos.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.Discontinued)
+            </th>
+            <th>Detay</th>
+            <th>Güncelle</th>
+            <th>Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discontinued)
+            </td>
+                <td class="text-center">
+                    <a asp-action="Detay" asp-controller="Product" asp-route-id="@item.ProductId"><i class="fas fa-search"></i></a>
+                </td>
+                <td class="text-center">
+                    <a asp-action="Guncelle" asp-controller="Product" asp-route-id="@item.ProductId" class="text-center"><i class="fas fa-pen-alt text-success"></i></a>
+                </td>
+                <td class="text-center">
+                    <a asp-action="Sil" asp-controller="Product" asp-route-id="@item.ProductId" class="text-center"><i class="fas fa-trash-alt text-danger"></i></a>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>

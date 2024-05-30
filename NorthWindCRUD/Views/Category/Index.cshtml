@@ -1,0 +1,62 @@
+﻿@model CategoryVM
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<h2 class="text-center text-danger">Kategori Listesi</h2>
+<form asp-action="Index" asp-controller="Category" class="d-inline-flex">
+	<input type="search" class="form-control" placeholder="Arama" name="search"/> 
+	<button type="submit" class="btn btn-success">Arama</button>
+</form>
+<hr />
+@if(TempData["result"]!=null)
+{
+<div class="alert alert-success">@TempData["result"]</div>
+}
+<p>
+	<a asp-action="Ekle" class="btn btn-success">Kategori Ekle</a>
+</p>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Category.CategoryId)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Category.CategoryName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Category.Description)
+			</th>
+			<th>Detay</th>
+			<th>Güncelle</th>
+			<th>Sil</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.cList)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.CategoryId)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.CategoryName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Description)
+				</td>
+				<td class="text-center">
+					<a asp-action="Detay" asp-controller="Category" asp-route-id="@item.CategoryId"><i class="fas fa-search"></i></a>
+				</td>
+				<td class ="text-center">
+					<a asp-action="Guncelle" asp-controller="Category" asp-route-id="@item.CategoryId" class="text-center"><i class="fas fa-pen-alt text-success"></i></a>
+				</td>
+				<td class="text-center">
+					<a asp-action="Sil" asp-controller="Category" asp-route-id="@item.CategoryId" class="text-center"><i class="fas fa-trash-alt text-danger"></i></a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
